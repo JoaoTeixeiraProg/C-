@@ -1,0 +1,231 @@
+- nome: Configuração do compilador C/C++
+  usa: rlalik/setup-cpp-compiler@v1.1
+
+
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Pessoas {
+private:
+    string nome;
+    string cpf;
+    string rg;
+public:
+    Pessoas();
+    Pessoas(string nome, string cpf, string rg);
+    string getNome();
+    string getCPF();
+    string getRG();
+    void setNome(string nome);
+    void setCPF(string cpf);
+    void setRG(string rg);
+};
+
+Pessoas::Pessoas() {
+    this->nome = " ";
+    this->cpf = " ";
+    this->rg = " ";
+}
+
+Pessoas::Pessoas(string nome, string cpf, string rg) {
+    this->nome = nome;
+    this->cpf = cpf;
+    this->rg = rg;
+}
+
+string Pessoas::getNome() {
+    return this->nome;
+}
+
+string Pessoas::getCPF() {
+    return this->cpf;
+}
+
+string Pessoas::getRG() {
+    return this->rg;
+}
+
+void Pessoas::setNome(string nome) {
+    this->nome = nome;
+}
+
+void Pessoas::setCPF(string cpf) {
+    this->cpf = cpf;
+}
+
+void Pessoas::setRG(string rg) {
+    this->rg = rg;
+}
+
+
+
+class Medico : public Pessoas {
+private:
+    string crm;
+    string especialidade;
+public:
+    Medico();
+    Medico(string nome, string cpf, string rg, string crm, string especialidade);
+    string getCRM();
+    string getEspecialidade();
+    void setCRM(string crm);
+    void setEspecialidade(string especialidade);
+};
+
+Medico::Medico() {
+    this->crm = " ";
+    this->especialidade = " ";
+}
+
+Medico::Medico(string nome, string cpf, string rg, string crm, string especialidade) :Pessoas(nome, cpf, rg) {
+    this->crm = crm;
+    this->especialidade = especialidade;
+}
+
+string Medico::getCRM() {
+    return this->crm;
+}
+string Medico::getEspecialidade() {
+    return this->especialidade;
+}
+
+void Medico::setCRM(string crm) {
+    this->crm = crm;
+}
+
+void Medico::setEspecialidade(string especialidade) {
+    this->especialidade = especialidade;
+}
+
+
+class Enfermeiro : public Pessoas {
+private:
+    string registro;
+public:
+    Enfermeiro();
+    Enfermeiro(string nome, string cpf, string rg, string registro);
+    string getRegistro();
+    void setRegistro(string registro);
+};
+
+Enfermeiro::Enfermeiro() {
+    this->registro = " ";
+}
+
+Enfermeiro::Enfermeiro(string nome, string cpf, string rg, string registro) :Pessoas(nome, cpf, rg) {
+    this->registro = registro;
+}
+
+string Enfermeiro::getRegistro() {
+    return this->registro;
+}
+
+void Enfermeiro::setRegistro(string registro) {
+    this->registro = registro;
+}
+
+class TurnoTrabalho : public Enfermeiro, Medico {
+private:
+    Medico medicoresponsavel;
+    Enfermeiro enfermeiroresponsavel;
+    string horainicio;
+    string horafinal;
+public:
+    TurnoTrabalho();
+    TurnoTrabalho(Medico medicoresponsavel, Enfermeiro enfermeiroresponsavel, string horainicio, string horafinal);
+    string getHoraInicio();
+    string getHoraFinal();
+    Medico getMedicoResponsavel();
+    Enfermeiro getEnfermeiroResponsavel();
+    void setMedicoResponsavel(Medico medicoresponsavel);
+    void setEnfermeiroResponsavel(Enfermeiro enfermeiroresponsavel);
+    void setHoraInicio(string horainicio);
+    void setHoraFinal(string horafinal);
+};
+
+TurnoTrabalho::TurnoTrabalho() {
+    this->horainicio = " ";
+    this->horafinal = " ";
+}
+
+TurnoTrabalho::TurnoTrabalho(Medico medicoresponsavel, Enfermeiro enfermeiroresponsavel, string horainicio, string horafinal):Medico(medicoresponsavel), Enfermeiro(enfermeiroresponsavel){
+    this->medicoresponsavel = medicoresponsavel;
+    this->enfermeiroresponsavel = enfermeiroresponsavel;
+    this->horainicio = horainicio;
+    this->horafinal = horafinal;
+}
+
+Medico TurnoTrabalho::getMedicoResponsavel() {
+    return this->medicoresponsavel;
+}
+
+Enfermeiro TurnoTrabalho::getEnfermeiroResponsavel() {
+    return this->enfermeiroresponsavel;
+}
+
+string TurnoTrabalho::getHoraInicio() {
+    return this->horainicio;
+}
+
+string TurnoTrabalho::getHoraFinal() {
+    return this->horafinal;
+}
+
+void TurnoTrabalho::setMedicoResponsavel(Medico medicoresponsavel) {
+    this->medicoresponsavel = medicoresponsavel;
+}
+
+void TurnoTrabalho::setEnfermeiroResponsavel(Enfermeiro enfermeiroresponsavel) {
+    this->enfermeiroresponsavel = enfermeiroresponsavel;
+}
+
+void TurnoTrabalho::setHoraInicio(string horainicio) {
+    this->horainicio = horainicio;
+}
+
+void TurnoTrabalho::setHoraFinal(string hoprafinal) {
+    this->horafinal = horafinal;
+}
+
+
+
+int main() {
+
+    Pessoas P0;
+    Pessoas P1("Carlos Roberto", "963.154.458-63", "68.958.132-9");
+    
+    cout << "PACIENTE " << endl << P1.getNome() << endl << P1.getCPF() << endl << P1.getRG() << endl;
+    cout << endl;
+    cout << "********************************************************" << endl;
+    cout << endl;
+
+
+    Enfermeiro E0;
+    Enfermeiro E1 ("Felipe Perrotti", "698.475.234-98", "78.569.698-8", "2569J7853");
+
+    cout << "ENFERMEIRO " << endl << "Nome: " << E1.getNome() << endl << "CPF: " << E1.getCPF() << endl << "RG: " << E1.getRG() << endl << "Registro: " << E1.getRegistro() << endl;
+    cout << endl;
+    cout << "********************************************************" << endl;
+    cout << endl;
+
+    Medico M0;
+    Medico M1 ("Rodrigo Maldonado", "986.253.156.78", "62.157.369-1", "569846543-5/BR", "Ortopedista");
+
+    cout << "MEDICO " << endl << "Nome: " << M1.getNome() << endl << "CPF: " << M1.getCPF() << endl << "RG: " << M1.getRG() << endl << "CRM: " << M1.getCRM() << endl << "Especialidade: " << M1.getEspecialidade() << endl;
+    cout << endl;
+    cout << "********************************************************" << endl;
+    cout << endl;
+
+
+    TurnoTrabalho T0;
+    TurnoTrabalho T1 (M1, E1, "05:00", "17:00");
+
+    cout << "ENFERMEIRO DE PLANTAO " << endl << "Nome: " << T1.getEnfermeiroResponsavel().getNome() << endl << "CPF: " << T1.getEnfermeiroResponsavel().getCPF() << endl << "RG: " << T1.getEnfermeiroResponsavel().getRG() << endl << "Registro: " << T1.getEnfermeiroResponsavel().getRegistro() << endl << "Inicio do turno: " << T1.getHoraInicio() << endl << "Fim do turno: " << T1.getHoraFinal() << endl;
+    cout << endl;
+    cout << "********************************************************" << endl;
+    cout << endl;
+
+    cout << "MEDICO DE PLANTAO " << endl << "Nome: " << T1.getMedicoResponsavel().getNome() << endl << "CPF: " << T1.getMedicoResponsavel().getCPF() << endl << "RG: " << T1.getMedicoResponsavel().getRG() << endl << "CRM: " << T1.getMedicoResponsavel().getCRM() << endl << "Especialidade: " << T1.getMedicoResponsavel().getEspecialidade() << endl << "Inicio do Turno: " << T1.getHoraInicio() << endl << "Fim do Turno: " << T1.getHoraFinal() << endl;
